@@ -8,7 +8,7 @@
 
 void selection_sort(int *array, size_t size)
 {
-	size_t i, j, k, min;
+	size_t i, j, min;
 	int temp;
 
 	for (i = 0; i < size - 1; i++)
@@ -21,18 +21,13 @@ void selection_sort(int *array, size_t size)
 
 
 		}
-		temp = array[i];
-		array[i] = array[min];
-		array[min] = temp;
-
-		for (k = 0; k < size; k++)
+		if (min != i)
 		{
-			printf("%d", array[k]);
-			if (k < size - 1)
-				printf(", ");
-
+			temp = array[i];
+			array[i] = array[min];
+			array[min] = temp;
+			print_array(array,size);
 		}
-		printf("\n");
 	}
 
 }
