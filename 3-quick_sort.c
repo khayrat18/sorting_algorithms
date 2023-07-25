@@ -1,10 +1,10 @@
 #include "sort.h"
 
 /**
- * swap - Swaps two integers.
+ * swap - Swaps two elements of an array.
  *
- * @a: Pointer to the first integer.
- * @b: Pointer to the second integer.
+ * @a: A pointer to the first element.
+ * @b: A pointer to the second element.
  */
 void swap(int *a, int *b)
 {
@@ -17,8 +17,8 @@ void swap(int *a, int *b)
  * partition - Partitions an array using the Lomuto partition scheme.
  *
  * @arr: The array to partition.
- * @low: The lowest index of the subarray to partition.
- * @high: The highest index of the subarray to partition.
+ * @low: The index of the first element of the subarray to partition.
+ * @high: The index of the last element of the subarray to partition.
  *
  * Return: The index of the pivot element.
  */
@@ -26,7 +26,6 @@ int partition(int *arr, int low, int high)
 {
 	int pivot = arr[high];
 	int i = low - 1, j;
-	int k;
 
 	for (j = low; j < high; j++)
 	{
@@ -36,38 +35,24 @@ int partition(int *arr, int low, int high)
 			if (i != j)
 			{
 				swap(&arr[i], &arr[j]);
-				for (k = low; k <= high; k++)
-				{
-					printf("%d", arr[k]);
-					if (k != high)
-						printf(", ");
-				}
-				printf("\n");
+				print_array(arr, high - low + 1);
 			}
 		}
 	}
 	if (arr[i + 1] != arr[high])
 	{
-		int k;
-
 		swap(&arr[i + 1], &arr[high]);
-		for (k = low; k <= high; k++)
-		{
-			printf("%d", arr[k]);
-			if (k != high)
-				printf(", ");
-		}
-		printf("\n");
+		print_array(arr, high - low + 1);
 	}
 	return (i + 1);
 }
 
 /**
- * quicksort - Sorts an array using the Quick Sort algorithm.
+ * quicksort - Sorts a subarray of an array using the Quick Sort algorithm.
  *
  * @arr: The array to sort.
- * @low: The lowest index of the subarray to sort.
- * @high: The highest index of the subarray to sort.
+ * @low: The index of the first element of the subarray to sort.
+ * @high: The index of the last element of the subarray to sort.
  */
 void quicksort(int *arr, int low, int high)
 {
@@ -81,8 +66,8 @@ void quicksort(int *arr, int low, int high)
 }
 
 /**
- * quick_sort - Sorts an array of integers in ascending order using
- *             the Quick Sort algorithm.
+ * quick_sort - Sorts an array of integers in
+ * ascending order using the Quick Sort algorithm.
  *
  * @array: The array to sort.
  * @size: The size of the array.
