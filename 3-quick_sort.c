@@ -1,80 +1,64 @@
 #include "sort.h"
 
 /**
- * swap - Swaps two elements of an array.
- *
- * @a: A pointer to the first element.
- * @b: A pointer to the second element.
- */
-void swap(int *a, int *b)
-{
-	int tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
+ * swap_elements - swaps two elelments
+ * @a: element to be swapped
+ * @b: element to be swapped
+*/
 
+void swap_elements(int *a, int *b) {
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
 /**
- * partition - Partitions an array using the Lomuto partition scheme.
- *
- * @arr: The array to partition.
- * @low: The index of the first element of the subarray to partition.
- * @high: The index of the last element of the subarray to partition.
- *
- * Return: The index of the pivot element.
- */
-int partition(int *arr, int low, int high)
+ * partition_function - 
+ * @array: array to be checked
+ * @low:
+ * @high:
+*/
+int partition_function(int *array, int low, int high) 
 {
-	int pivot = arr[high];
-	int i = low - 1, j;
-
-	for (j = low; j < high; j++)
-	{
-		if (arr[j] < pivot)
-		{
-			i++;
-			if (i != j)
-			{
-				swap(&arr[i], &arr[j]);
-				print_array(arr, high - low + 1);
-			}
-		}
-	}
-	if (arr[i + 1] != arr[high])
-	{
-		swap(&arr[i + 1], &arr[high]);
-		print_array(arr, high - low + 1);
-	}
-	return (i + 1);
+    int j;
+    int pivot = array[high];
+    int i = low - 1;
+    for (j = low; j < high; j++) {
+        if (array[j] <= pivot) {
+            i++;
+            swap_elements(&array[i], &array[j]);
+        }
+    }
+    swap_elements(&array[i+1], &array[high]);
+    return i+1;
 }
-
 /**
- * quicksort - Sorts a subarray of an array using the Quick Sort algorithm.
- *
- * @arr: The array to sort.
- * @low: The index of the first element of the subarray to sort.
- * @high: The index of the last element of the subarray to sort.
- */
-void quicksort(int *arr, int low, int high)
+ * quick_sort_helper
+*/
+void quick_sort_helper(int *array, int low, int high) 
 {
-	if (low < high)
-	{
-		int pivot = partition(arr, low, high);
+    int i;
 
-		quicksort(arr, low, pivot - 1);
-		quicksort(arr, pivot + 1, high);
-	}
+    if (low < high) {
+        int p = partition_function(array, low, high);
+        for (i = low; i <= high; i++) {
+            printf("%d", array[i]);
+            if (i < high) {
+                printf(", ");
+            }
+        }
+        printf("\n");
+        quick_sort_helper(array, low, p-1);
+        quick_sort_helper(array, p+1, high);
+    }
 }
-
 /**
- * quick_sort - Sorts an array of integers in
- * ascending order using the Quick Sort algorithm.
- *
- * @array: The array to sort.
- * @size: The size of the array.
- */
-void quick_sort(int *array, size_t size)
-{
-	if (array == NULL || size < 2)
-		return;
-	quicksort(array, 0, size - 1);
+ * quick_sort
+*/
+void quick_sort(int *array, size_t size) {
+    quick_sort_helper(array, 0, size-1);
 }
+
+    
+
+           
+   
